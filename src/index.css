@@ -1,10 +1,10 @@
 /* Paleta de cores: */
 
 :root {
-  --med-first: #23408e;
-  --med-second: #cccccc;
-  --med-third: #ed1b24;
-  --med-fourth: #385399;
+  --med-first: #b6ffff;
+  --med-second: #63f4f4;
+  --med-third: #fc5557;
+  --med-fourth: #319292;
 }
 
 .bg-first-color{
@@ -26,6 +26,24 @@
 body {
   padding-top: 3rem;
   padding-bottom: 3rem;
-  background-color: var(--med-second);
   background-repeat: repeat;
+}
+
+
+.nav-link {
+  color: var(--med-fourth);
+}
+
+.nav-link {
+  color: var(--med-fourth) !important;
+}
+
+.btn-primary {
+  background-color: var(--med-fourth) !important;
+  border-color: var(--med-fourth) !important;
+}
+
+.btn-secundary {
+  background-color: white;
+  border-color: gray;
 }
