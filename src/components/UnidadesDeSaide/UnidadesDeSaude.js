@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AddButton } from '../ActionButtons/ActionButtons';
+import AddButton from '../ActionButtons/AddButton';
 import UnidadeDeSaude from '../UnidadeDeSaude/UnidadeDeSaude';
 
 const UnidadesDeSaude = () => {

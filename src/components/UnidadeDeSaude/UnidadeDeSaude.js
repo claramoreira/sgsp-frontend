@@ -1,4 +1,6 @@
-import { DeleteButton, EditButton, DetailButton } from '../ActionButtons/ActionButtons';
+import DeleteButton from '../ActionButtons/DeleteButton';
+import EditButton from '../ActionButtons/EditButton';
+import DetailButton from '../ActionButtons/DetailButton';
 
 const UnidadeDeSaude = ({ us }) => {
     return (
