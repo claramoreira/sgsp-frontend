@@ -34,7 +34,7 @@ const useRequest = (baseUrl, routeName) => {
             }
         };
         fetchData();
-    }, [baseUrl, routeName]);
+    }, [baseUrl, routeName, records]);
 
     const propsLocal = {
         records,
@@ -54,7 +54,7 @@ const useRequest = (baseUrl, routeName) => {
                     error: e,
                 });
             }
-        }, []),
+        }, [baseUrl, routeName]),
         put: React.useCallback(async (record) => {
             try {
                 await axios.put(`${baseUrl}/${routeName}/${record.id_unidade_saude}`, record);
@@ -68,7 +68,7 @@ const useRequest = (baseUrl, routeName) => {
                     error: e,
                 });
             }
-        }, []),
+        }, [baseUrl, routeName]),
         inactive: React.useCallback(async (record) => {
             try {
                 console.log(record);
@@ -83,7 +83,7 @@ const useRequest = (baseUrl, routeName) => {
                     error: e,
                 });
             }
-        }, []),
+        }, [baseUrl, routeName]),
     };
     return propsLocal;
 };

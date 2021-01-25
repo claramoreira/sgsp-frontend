@@ -48,7 +48,6 @@ const requestReducer = (state, action) => {
         }
         case PUT_SUCCESS:
             const { records } = state;
-            const { record } = action;
             return {
                 ...state,
                 records: records,

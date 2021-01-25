@@ -1,10 +1,8 @@
 import DeleteButton from '../ActionButtons/DeleteButton';
 import EditButton from '../ActionButtons/EditButton';
 import DetailButton from '../ActionButtons/DetailButton';
-import { useState } from 'react';
 
 const UnidadeDeSaude = (props) => {
-    const [rerender, setRerender] = useState({});
     return (
         <>
             <tr>
@@ -16,9 +14,8 @@ const UnidadeDeSaude = (props) => {
                 <td>{props.us.cep}</td>
                 <td>{props.us.telefone}</td>
                 <td>
-                    {console.log(props.deleteFunction)}
                     <DeleteButton us={props.us} deleteFunction={props.deleteFunction} />
-                    <EditButton us={props.us} editFunction={props.editFunction} forceRerender={setRerender} />
+                    <EditButton us={props.us} editFunction={props.editFunction} />
                     <DetailButton us={props.us} />
                 </td>
             </tr>

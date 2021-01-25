@@ -47,8 +47,3 @@ body {
   background-color: white;
   border-color: gray;
 }
-
-.btn-warning {
-  background-color: var(--med-third);
-  border-color: var(--med-third);
-}

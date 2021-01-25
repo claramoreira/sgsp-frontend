@@ -19,7 +19,7 @@ const DeleteDialogContent = (props) => {
                         Deseja deletar a Unidade de Saúde: <b>{props.us.nome}</b>?
                     </div>
 
-                    <button className="btn mb-2 btn-warning col-4" id="submit-button"
+                    <button className="btn mb-2 btn-danger col-4" id="submit-button"
                         onClick={() => {
                             // Сlose the dialog and return the value
                             dialog.close();

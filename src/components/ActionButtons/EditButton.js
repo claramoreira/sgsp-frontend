@@ -28,7 +28,6 @@ const EditDialogContent = (props) => {
                 status: 1
             }
             props.editFunction(newUnity);
-            props.forceRerender(newUnity);
         }
     };
 
@@ -113,10 +112,8 @@ const EditDialogContent = (props) => {
                         ></textarea>
                     </div>
                 </div>
-
                 <button className="btn mb-2 btn-primary col-4" id="submit-button"
                     onClick={() => {
-                        // Сlose the dialog and return the value
                         dialog.close();
                     }}
                 >
@@ -125,10 +122,9 @@ const EditDialogContent = (props) => {
                 <button className="btn mb-2 btn-secundary offset-md-4 col-4" id="cancel-button"
                     onClick={() => {
                         dialog.close();
-                    }}
-                >
+                    }}>
                     Cancelar
-                    </button>
+                </button>
 
             </form>
         </div >
@@ -139,7 +135,7 @@ const EditButton = (props) => {
     return (
         <svg
             onClick={async () => {
-                await CustomDialog(<EditDialogContent us={props.us} editFunction={props.editFunction} forceRerender={props.forceRerender} />, {
+                await CustomDialog(<EditDialogContent us={props.us} editFunction={props.editFunction} />, {
                     title: props.us.nome
                 });
             }}

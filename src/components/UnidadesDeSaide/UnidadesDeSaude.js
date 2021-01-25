@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { DataContext, DataProvider } from '../../contexts/DataContext';
 
 import AddButton from '../ActionButtons/AddButton';
@@ -9,7 +9,6 @@ import { baseUrl } from '../../info/ServerInfo';
 
 const UnidadesDeSaudeComponent = () => {
     const { records: us, post, put, inactive } = useContext(DataContext);
-    console.log(us);
     // const [searchQuery, setSearchQuery] = useState('');
     // const success = status === REQUEST_STATUS.SUCCESS;
     // const isLoading = status === REQUEST_STATUS.LOADING;
