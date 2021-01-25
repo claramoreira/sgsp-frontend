@@ -16,7 +16,6 @@ const AddDialogContent = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const newUnity = {
-            id: "5",
             nome: newNome.nome,
             categoria: newCategoria.categoria,
             tipo: newTipo.tipo,
@@ -25,7 +24,7 @@ const AddDialogContent = (props) => {
             telefone: newTelefone.telefone,
             descricao: newDescricao.descricao
         }
-        props.addNewUs(5, newUnity);
+        props.addNewUs(newUnity);
     };
 
     return (

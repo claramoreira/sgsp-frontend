@@ -6,7 +6,7 @@ const UnidadeDeSaude = ({ us }) => {
     return (
         <>
             <tr>
-                <th scope="row">{us.id}</th>
+                <th scope="row">{us.id_unidade_saude}</th>
                 <td>{us.nome}</td>
                 <td>{us.categoria}</td>
                 <td>{us.tipo}</td>

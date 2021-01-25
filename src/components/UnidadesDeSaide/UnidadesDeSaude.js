@@ -1,60 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { DataContext, DataProvider } from '../../contexts/DataContext';
+
 import AddButton from '../ActionButtons/AddButton';
 import UnidadeDeSaude from '../UnidadeDeSaude/UnidadeDeSaude';
-
-const UnidadesDeSaude = () => {
-    const usStatic =
-        [{
-            "id": 1,
-            "nome": "Hospital Belo Horizonte",
-            "categoria": "Público",
-            "tipo": "Hospital",
-            "endereco": "Av. Pres. Antônio Carlos, 1694 - Cachoeirinha",
-            "CEP": "10200-200",
-            "telefone": "(31) 1234-5678",
-            "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-        {
-            "id": 2,
-            "nome": "Hospital Felício Rocho",
-            "categoria": "Particular",
-            "tipo": "Hospital",
-            "endereco": " Av. do Contorno, 9530 - Barro Preto",
-            "CEP": "10200-200",
-            "telefone": "(31) 1234-5678",
-            "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-        {
-            "id": 3,
-            "nome": "Hospital Paulo de Tarso",
-            "categoria": "Público",
-            "tipo": "Hospital",
-            "endereco": "R. Estoril, 207 - São Francisco",
-            "CEP": "10200-200",
-            "telefone": "(31) 1234-5678",
-            "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-        {
-            "id": 4,
-            "nome": "Laboratório Hermes Pardini",
-            "categoria": "Particular",
-            "tipo": "Laboratório",
-            "endereco": "R. Estoril, 207 - São Francisco",
-            "CEP": "10200-200",
-            "telefone": "(31) 1234-5678",
-            "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        }];
+import { REQUEST_STATUS } from '../../reducers/request';
+import { baseUrl } from '../../info/ServerInfo';
 
 
-    const [us, setUs] = useState(usStatic);
+const UnidadesDeSaudeComponent = () => {
+    const { records: us, status, error, post, put } = useContext(DataContext);
+    // const [searchQuery, setSearchQuery] = useState('');
+    const success = status === REQUEST_STATUS.SUCCESS;
+    const isLoading = status === REQUEST_STATUS.LOADING;
+    const hasErrored = status === REQUEST_STATUS.ERROR;
 
-    const handleChange = (index, value) => {
-        const newUs = [...us];
-        console.log(value);
-        newUs[index] = value;
-        setUs(newUs);
-        console.log(newUs);
-    }
+    // const handleChange = (index, value) => {
+    //     const newUs = [...us];
+    //     console.log(value);
+    //     newUs[index] = value;
+    //     setUs(newUs);
+    //     console.log(newUs);
+    // }
 
     return (
         <div className="p-4 container-fluid">
@@ -76,15 +42,24 @@ const UnidadesDeSaude = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {us.map(
-                            (us) =>
-                                <UnidadeDeSaude key={us.id} us={us} />
-                        )}
+                        {console.log(us)}{
+                            us.map(
+                                (us) =>
+                                    <UnidadeDeSaude key={us.id_unidade_saude} us={us} />
+                            )}
                     </tbody>
                 </table>
             </div>
-            <AddButton addNewUs={handleChange} />
+            <AddButton addNewUs={post} />
         </div>
+    );
+};
+
+const UnidadesDeSaude = (props) => {
+    return (
+        <DataProvider baseUrl={baseUrl} routeName="unidadesaude">
+            <UnidadesDeSaudeComponent {...props}></UnidadesDeSaudeComponent>
+        </DataProvider>
     );
 };
 
