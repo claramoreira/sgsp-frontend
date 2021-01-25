@@ -2,75 +2,102 @@ import React, { useState } from 'react';
 import { CustomDialog, useDialog } from 'react-st-modal';
 import { TIPO, CATEGORIA } from './FormOptions';
 
-const EditDialogContent = ({ us }) => {
+const EditDialogContent = (props) => {
     const dialog = useDialog();
-    const [value, setValue] = useState();
+    const [newNome, setNewNome] = useState({ nome: '' + props.us.nome });
+    const [newCategoria, setNewCategoria] = useState({ categoria: '' + props.us.categoria });
+    const [newTipo, setNewTipo] = useState({ tipo: '' + props.us.tipo });
+    const [newEndereco, setNewEndereco] = useState({ endereco: '' + props.us.endereco });
+    const [newCEP, setNewCEP] = useState({ cep: '' + props.us.cep });
+    const [newTelefone, setNewTelefone] = useState({ telefone: '' + props.us.telefone });
+    const [newDescricao, setNewDescricao] = useState({ descricao: '' + props.us.descricao });
+    const id = props.us.id_unidade_saude;
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (event.nativeEvent.submitter.id === "submit-button") {
+            const newUnity = {
+                id_unidade_saude: id,
+                nome: newNome.nome,
+                categoria: newCategoria.categoria,
+                tipo: newTipo.tipo,
+                endereco: newEndereco.endereco,
+                cep: newCEP.cep,
+                telefone: newTelefone.telefone,
+                descricao: newDescricao.descricao,
+                status: 1
+            }
+            props.editFunction(newUnity);
+            props.forceRerender(newUnity);
+        }
+    };
+
     return (
         <div className="container-fluid">
-            <form className="needs-validation m-2">
+            <form className="m-2" onSubmit={handleSubmit}>
                 <div className="form-group mb-3">
                     <label>Nome:</label>
                     <input
+                        value={newNome.nome}
                         type="text"
                         className="col-md-12"
-                        value={us.nome}
-                        onChange={(e) => {
-                            setValue(e.target.value);
-                        }}
+                        placeholder="Ex.: Hospital Mater Dei"
+                        onChange={(event) => setNewNome({ nome: event.target.value })}
                     />
                 </div>
                 <div className="row">
                     <div className="col-md-6 mb-3 form-group">
                         <label>Categoria:</label>
-                        <select className="custom-select d-block w-80" id="categoria">
-                            <option value="">{us.categoria}</option>
-                            {CATEGORIA.filter((val) => (val !== us.categoria)).map(
+                        <select selected value={newCategoria.categoria} className="custom-select d-block w-80" id="categoria"
+                            onChange={(event) => setNewCategoria({ categoria: event.target.value })}
+                        >
+                            {CATEGORIA.map(
                                 (categoria) =>
-                                    <option>{categoria}</option>
+                                    <option value={categoria} key={categoria}>{categoria}</option>
                             )}
                         </select>
                     </div>
                     <div className="col-md-6 mb-3 form-group">
                         <label>Tipo:</label>
-                        <select className="custom-select d-block w-80" id="tipo">
-                            <option value="">{us.tipo}</option>
-                            {TIPO.filter((val) => (val !== us.tipo)).map(
-                                (tipo) =>
-                                    <option>{tipo}</option>
-                            )}
+                        <select selected value={newTipo.tipo} className="custom-select d-block w-80" id="tipo"
+                            onChange={(event) => setNewTipo({ tipo: event.target.value })}
+                        >
+                            {
+                                TIPO.map(
+                                    (tipo) =>
+                                        <option key={tipo} value={tipo}>{tipo}</option>
+                                )
+                            }
                         </select>
                     </div>
                 </div>
                 <div className="form-group mb-3">
                     <label>Endereço:</label>
                     <input
+                        value={newEndereco.endereco}
                         type="text"
+                        placeholder="Ex.: Av. do Contorno, 9530 - Barro Preto"
                         className="col-md-12"
-                        value={us.endereco}
-                        onChange={(e) => {
-                            setValue(e.target.value);
-                        }}
+                        onChange={(event) => setNewEndereco({ endereco: event.target.value })}
                     />
                 </div>
                 <div className="row">
                     <div className="col-sm-6 mb-3 form-group">
                         <label>CEP:</label>
                         <input
+                            value={newCEP.cep}
                             type="text"
-                            value={us.CEP}
-                            onChange={(e) => {
-                                setValue(e.target.value);
-                            }}
+                            placeholder="350150-200"
+                            onChange={(event) => setNewCEP({ cep: event.target.value })}
                         />
                     </div>
                     <div className="col-sm-6 mb-3 form-group">
                         <label>Telefone:</label>
                         <input
+                            value={newTelefone.telefone}
                             type="text"
-                            value={us.telefone}
-                            onChange={(e) => {
-                                setValue(e.target.value);
-                            }}
+                            placeholder="(31) 3456-7891"
+                            onChange={(event) => setNewTelefone({ telefone: event.target.value })}
                         />
                     </div>
                 </div>
@@ -78,21 +105,24 @@ const EditDialogContent = ({ us }) => {
                     <div className="form-group">
                         <label>Descrição:</label>
                         <textarea
-                            value={us.descricao}
+                            value={newDescricao.descricao}
+                            placeholder="Escreva uma breve descrição da unidade de saúde e suas especialidades"
                             className="form-control"
-                            id="descricao" rows="3"></textarea>
+                            id="descricao" rows="3"
+                            onChange={(event) => setNewDescricao({ descricao: event.target.value })}
+                        ></textarea>
                     </div>
                 </div>
 
-                <button type="submit" className="btn mb-2 btn-primary col-4"
+                <button className="btn mb-2 btn-primary col-4" id="submit-button"
                     onClick={() => {
                         // Сlose the dialog and return the value
-                        dialog.close(value);
+                        dialog.close();
                     }}
                 >
                     Salvar
                     </button>
-                <button type="submit" className="btn mb-2 btn-secundary offset-md-4 col-4"
+                <button className="btn mb-2 btn-secundary offset-md-4 col-4" id="cancel-button"
                     onClick={() => {
                         dialog.close();
                     }}
@@ -105,12 +135,12 @@ const EditDialogContent = ({ us }) => {
     );
 };
 
-const EditButton = ({ us }) => {
+const EditButton = (props) => {
     return (
         <svg
             onClick={async () => {
-                await CustomDialog(<EditDialogContent us={us} />, {
-                    title: us.nome
+                await CustomDialog(<EditDialogContent us={props.us} editFunction={props.editFunction} forceRerender={props.forceRerender} />, {
+                    title: props.us.nome
                 });
             }}
             xmlns="http://www.w3.org/2000/svg" width="16" height="16" fillRule="currentColor" className="bi bi-pencil-square mr-2" viewBox="0 0 16 16">

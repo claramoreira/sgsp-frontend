@@ -46,18 +46,12 @@ const requestReducer = (state, action) => {
                 error: action.error,
             };
         }
-
         case PUT_SUCCESS:
             const { records } = state;
             const { record } = action;
-            const recordIndex = records.map((rec) => rec.id).indexOf(record.id);
             return {
                 ...state,
-                records: [
-                    ...records.slice(0, recordIndex),
-                    record,
-                    ...records.slice(recordIndex + 1),
-                ],
+                records: records,
             };
         case PUT_FAILURE:
             console.log(

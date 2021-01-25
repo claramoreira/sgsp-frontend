@@ -57,7 +57,22 @@ const useRequest = (baseUrl, routeName) => {
         }, []),
         put: React.useCallback(async (record) => {
             try {
-                await axios.put(`${baseUrl}/${routeName}/${record.id}`, record);
+                await axios.put(`${baseUrl}/${routeName}/${record.id_unidade_saude}`, record);
+                dispatch({
+                    type: PUT_SUCCESS,
+                    record: record,
+                });
+            } catch (e) {
+                dispatch({
+                    type: PUT_FAILURE,
+                    error: e,
+                });
+            }
+        }, []),
+        inactive: React.useCallback(async (record) => {
+            try {
+                console.log(record);
+                await axios.put(`${baseUrl}/${routeName}/${record.id_unidade_saude}`, record);
                 dispatch({
                     type: PUT_SUCCESS,
                     record: record,

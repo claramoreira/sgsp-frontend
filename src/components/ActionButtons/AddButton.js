@@ -4,6 +4,7 @@ import { TIPO, CATEGORIA } from './FormOptions';
 
 const AddDialogContent = (props) => {
 
+    console.log(props);
     const dialog = useDialog();
     const [newNome, setNewNome] = useState({ nome: '' });
     const [newCategoria, setNewCategoria] = useState({ categoria: 'Selecione a categoria' });
@@ -15,16 +16,19 @@ const AddDialogContent = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const newUnity = {
-            nome: newNome.nome,
-            categoria: newCategoria.categoria,
-            tipo: newTipo.tipo,
-            endereco: newEndereco.endereco,
-            CEP: newCEP.CEP,
-            telefone: newTelefone.telefone,
-            descricao: newDescricao.descricao
+        if (event.nativeEvent.submitter.id === "submit-button") {
+            const newUnity = {
+                nome: newNome.nome,
+                categoria: newCategoria.categoria,
+                tipo: newTipo.tipo,
+                endereco: newEndereco.endereco,
+                cep: newCEP.CEP,
+                telefone: newTelefone.telefone,
+                descricao: newDescricao.descricao,
+                status: 1
+            }
+            props.addNewUs(newUnity);
         }
-        props.addNewUs(newUnity);
     };
 
     return (
@@ -111,15 +115,15 @@ const AddDialogContent = (props) => {
                     </div>
                 </div>
 
-                <button className="btn mb-2 btn-primary col-4"
+                <button className="btn mb-2 btn-primary col-4" id="submit-button"
                     onClick={() => {
                         // Сlose the dialog and return the value
                         dialog.close();
                     }}
                 >
-                    Salvar
+                    Adicionar
                     </button>
-                <button className="btn mb-2 btn-secundary offset-md-4 col-4"
+                <button className="btn mb-2 btn-secundary offset-md-4 col-4" id="cancel-button"
                     onClick={() => {
                         dialog.close();
                     }}
