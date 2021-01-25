@@ -50,8 +50,10 @@ const UnidadesDeSaude = () => {
 
     const handleChange = (index, value) => {
         const newUs = [...us];
+        console.log(value);
         newUs[index] = value;
         setUs(newUs);
+        console.log(newUs);
     }
 
     return (
@@ -72,7 +74,6 @@ const UnidadesDeSaude = () => {
                             <th scope="col">Telefone</th>
                             <th scope="col">Ações</th>
                         </tr>
-                        {console.log(us[0])}
                     </thead>
                     <tbody>
                         {us.map(
